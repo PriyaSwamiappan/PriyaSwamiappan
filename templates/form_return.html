@@ -1,0 +1,53 @@
+{% extends "bootstrap/base.html" %}
+<script>
+    function send_data(data) {
+      console.log(data);
+  }
+
+</script>
+
+{% block content %}
+<a href='/index' style="float: right;"><button>Submit a New Case</button></a>
+  <table id="data" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Case ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Case Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for case in data %}
+        <tr>
+          <td><form action="/case" method="post">
+            <input type="hidden" id="cid" name="case_id" value={{data[0]}}>
+            <input type="submit" value={{case[0]}} />
+        </form></td>
+          <td>{{ case[1] }}</td>
+          <td>{{ case[2] }}</td>
+          <td>{{ case[3] }}</td>
+          <td>{{ case[4] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+    
+{% endblock %}
+<!-- <!DOCTYPE html>
+<html>
+<body>
+
+<h1>The Data Returned</h1>
+
+<ul>
+{% for item in data %}
+    <li>{{item}}</li>
+{% endfor %}
+</ul>
+
+</body>
+</html> -->
+
+

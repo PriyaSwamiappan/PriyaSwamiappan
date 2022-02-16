@@ -1,0 +1,50 @@
+{% extends "bootstrap/base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-12">
+      <div class="jumbotron text-center p-4">
+        <h2>Case Management Application Demo</h2>
+        <!-- <a href="/table">Visit W3Schools</a> -->
+      </div>
+    </div>
+    <div class="col-lg-6">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }}" role="alert">
+        {{ message }}
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+      <form method="POST">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Authenticate User</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% block javascript %}
+        <script>
+            window.addEventListener("DOMContentLoaded", function(event) {
+            const queryString = window.location.search;
+            const parameters = new URLSearchParams(queryString);
+            const username = parameters.get('username');
+            const password = parameters.get('password');
+            if (username==="john5678" && password==="guru1!"){
+                window.location.href = "/table";
+            }
+            });
+        </script>
+    {% endblock %}
+{% endblock %}

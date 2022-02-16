@@ -1,0 +1,50 @@
+{% extends "bootstrap/base.html" %}
+
+{% block content %}
+<a href='/display_page' style="float: right;"><button>All Cases</button></a>
+    <table style="width:100%">
+        <tr>
+        <th>Case ID:</th>
+        <td>{{ data[0][0] }}</td>
+        </tr>
+        <tr>
+        <th>First Name:</th>
+        <td>{{ data[0][1] }}</td>
+        </tr>
+        <tr>
+        <th>Lastname:</th>
+        <td>{{ data[0][2] }}</td>
+        </tr>
+        <tr>
+        <th>Email:</th>
+        <td>{{ data[0][3] }}</td>
+        </tr>
+        <tr>
+        <th>Case Details:</th>
+        <td>{{ data[0][4] }}</td>
+        </tr>
+    </table>
+    
+  <!-- <table id="data" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Case ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Case Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for case in data %}
+        <tr>
+          <td><a href="https://www.w3schools.com">{{ case[0] }}</a></td>
+          <td>{{ case[1] }}</td>
+          <td>{{ case[2] }}</td>
+          <td>{{ case[3] }}</td>
+          <td>{{ case[4] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody> -->
+  <!-- </table> -->
+{% endblock %}

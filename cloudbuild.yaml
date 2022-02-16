@@ -1,0 +1,82 @@
+steps:
+- name: python
+  entrypoint: pip
+  args: ["install", "-r", "requirements.txt", "--user"]
+
+# Run unit tests
+- name: python
+  entrypoint: python
+  args: ["-m", "pytest", "--junitxml=${SHORT_SHA}_test_log.xml"]
+
+- name: python
+  entrypoint: python
+  # args: ["-m","pytest", "--cov=."]
+  # args: ["-m","pytest", "--cov-report","xml:${SHORT_SHA}_cov.xml"]
+  args: ["-m","pytest", "--disable-pytest-warnings","--cov-report","term","--cov-report", "xml:${SHORT_SHA}_cov.xml", "--cov=/workspace/"]
+  #pytest --disable-pytest-warnings --cov-report term --cov-report html:${SHORT_SHA}_cov_html --cov=/workspace/
+
+
+- name: 'bash'
+  args: ['ls']
+
+
+- name: "gcr.io/cloud-builders/gcloud"
+  args: ["app", "deploy"]
+  timeout: "1600s"
+
+artifacts:
+  objects:
+    location: gs://test_logs_cloudwaveinc/
+    paths:
+      - ${SHORT_SHA}_test_log.xml
+      # - workspace/${SHORT_SHA}_cov_html/index.html
+      - /workspace/${SHORT_SHA}_cov.xml
+
+
+
+#last active content - will revert back
+# steps:
+# - name: 'gcr.io/e-cycling-329118/sonar-scanner:latest'
+#   id: B
+#   args:
+#     - '-Dsonar.host.url=https://sonarcloud.io'
+#     - '-Dsonar.login=PriyaSwamiappan'
+#     - '-Dsonar.projectKey=Cloudwavekey'
+#     - '-Dsonar.organization=cloudwave'
+#     - '-Dsonar.sources=.'
+# tags: ['cloud-builders-community']
+
+# - name: "gcr.io/cloud-builders/gcloud"
+#- name: "gcr.io/cloud-builders/gcloud"
+# id: A 
+ # args:
+ #   - 'app'
+ #   - 'deploy'
+ #   - 'build'
+ #   - '--build-arg'
+ #   - 'SONARQUBE_SCANNER_CLI_VERSION=4.6.0.2311'
+ #   - '-t'
+ #   - 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
+ #   - '-t'
+ #   - 'gcr.io/$PROJECT_ID/sonar-scanner:4.6.0.2311'
+ #   - '.'
+
+#images: 
+#- 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
+#- 'gcr.io/$PROJECT_ID/sonar-scanner:4.6.0.2311'
+    
+#- name: 'gcr.io/e-cycling-329118/sonar-scanner:latest' 
+ # id: B
+ # args:
+  #  - '-Dsonar.host.url=https://sonarcloud.io'
+ #   - '-Dsonar.login=PriyaSwamiappan@github'
+ #   - '-Dsonar.projectKey=Cloudwavekey'
+  #  - '-Dsonar.organization=cloudwave'
+  #  - '-Dsonar.sources=.'
+  #waitFor:
+  #- A
+
+  # args: ['app', 'deploy',‘-Dsonar.host.url=https://e-cycling-‘-Dsonar.login=744616df98956cc31c6d39904ca93dc7671902d4’,‘-Dsonar.projectKey=Cloudwavekey’329118.ue.r.appspot.com/’, ‘-Dsonar.login=priyaswamiappan’,‘-Dsonar.projectKey=Cloudwavekey’,‘-Dsonar.organization=cloudwave’,‘-Dsonar.sources=.’]
+#timeout: "1600s"
+#tags: ['cloud-builders-community']
+ 

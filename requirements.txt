@@ -1,0 +1,11 @@
+flask
+psycopg2
+psycopg2-binary
+PyMySQL
+SQLAlchemy
+mysql-connector-python
+Flask-Bootstrap4
+pyotp
+google-cloud-secret-manager
+pytest
+pytest-cov
